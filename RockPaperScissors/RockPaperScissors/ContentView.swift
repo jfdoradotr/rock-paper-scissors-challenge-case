@@ -11,10 +11,23 @@ struct ContentView: View {
   @State private var showAlert = false
 
   var body: some View {
-    HStack(spacing: 60) {
-      ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
-        OptionButton(option: option, action: onTap)
+    VStack {
+      Spacer()
+      Text("Rock 🪨, Paper 📄 & Scissors ✂️")
+        .font(.title.bold())
+        .multilineTextAlignment(.center)
+      Spacer()
+      VStack(spacing: 20) {
+        Text("Please chose an option:")
+          .font(.headline)
+        HStack(spacing: 60) {
+          ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
+            OptionButton(option: option, action: onTap)
+          }
+        }
       }
+      Spacer()
+      Spacer()
     }
     .padding()
     .alert(alertTitle, isPresented: $showAlert) {
