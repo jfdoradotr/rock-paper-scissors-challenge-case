@@ -119,24 +119,16 @@ struct ContentView: View {
     }
   }
 
+  private func generateAlertMessage(for option: OptionButton.GameOption) {
+    let opponentChoice = youWin ? option.losingOpponent : option.winningOpponent
+    alertMessage = "You chose \(option.text), I chose \(opponentChoice.text)"
+  }
+
   private func handleOptionTap(_ option: OptionButton.GameOption) {
     determineOutcome()
     updateScores()
+    generateAlertMessage(for: option)
 
-    switch (option, youWin) {
-    case (.rock, true):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.paper.text)"
-    case (.paper, true):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.scissors.text)"
-    case (.scissors, true):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.rock.text)"
-    case (.rock, false):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.paper.text)"
-    case (.paper, false):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.scissors.text)"
-    case (.scissors, false):
-      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.rock.text)"
-    }
     showAlert = true
   }
 }
