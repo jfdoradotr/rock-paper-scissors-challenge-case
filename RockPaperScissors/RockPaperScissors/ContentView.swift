@@ -9,6 +9,8 @@ struct ContentView: View {
   @State private var alertTitle = ""
   @State private var alertMessage = ""
   @State private var showAlert = false
+  @State private var playerPoints = 0
+  @State private var computerPoints = 0
 
   var body: some View {
     VStack {
@@ -27,6 +29,25 @@ struct ContentView: View {
         }
       }
       Spacer()
+      Spacer()
+      VStack(spacing: 20) {
+        Text("Score")
+          .font(.subheadline.bold())
+        HStack {
+          Spacer()
+          VStack {
+            Text("👤")
+            Text("\(playerPoints)")
+          }
+          Spacer()
+          VStack {
+            Text("💻")
+            Text("\(computerPoints)")
+          }
+          Spacer()
+        }
+      }
+      .font(.footnote.bold())
       Spacer()
     }
     .padding()
