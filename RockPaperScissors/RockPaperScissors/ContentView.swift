@@ -164,6 +164,28 @@ private extension ContentView.OptionButton {
         return "✂️"
       }
     }
+
+    var winningOpponent: GameOption {
+      switch self {
+      case .rock:
+        return .scissors
+      case .paper:
+        return .rock
+      case .scissors:
+        return .paper
+      }
+    }
+
+    var losingOpponent: GameOption {
+      switch self {
+      case .rock:
+        return .paper
+      case .paper:
+        return .scissors
+      case .scissors:
+        return .rock
+      }
+    }
   }
 }
 
