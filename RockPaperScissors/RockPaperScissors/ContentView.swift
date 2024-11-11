@@ -14,6 +14,8 @@ struct ContentView: View {
   @State private var attempts = 1
   @State private var gameOverAlert = false
 
+  private let maxAttempts = 10
+
   var body: some View {
     ZStack {
       RadialGradient(
@@ -52,7 +54,7 @@ struct ContentView: View {
           }
           Spacer()
           VStack {
-            Text("\(attempts)/10")
+            Text("\(attempts)/\(maxAttempts)")
           }
         }
         .font(.footnote.bold())
