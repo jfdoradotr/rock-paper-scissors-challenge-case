@@ -111,14 +111,17 @@ struct ContentView: View {
     alertTitle = youWin ? "You won" : "You lost"
   }
 
-  private func handleOptionTap(_ option: OptionButton.GameOption) {
-    determineOutcome()
-
+  private func updateScores() {
     if youWin {
       playerPoints += 1
     } else {
       computerPoints += 1
     }
+  }
+
+  private func handleOptionTap(_ option: OptionButton.GameOption) {
+    determineOutcome()
+    updateScores()
 
     switch (option, youWin) {
     case (.rock, true):
