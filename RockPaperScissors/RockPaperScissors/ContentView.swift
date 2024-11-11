@@ -48,7 +48,6 @@ struct ContentView: View {
         }
       }
       .font(.footnote.bold())
-      Spacer()
     }
     .padding()
     .alert(alertTitle, isPresented: $showAlert) {
@@ -67,6 +66,13 @@ struct ContentView: View {
 
   private func onTap(_ option: OptionButton.GameOption) {
     alertTitle = youWin ? "You won" : "You lost"
+
+    if youWin {
+      playerPoints += 1
+    } else {
+      computerPoints += 1
+    }
+
     switch (option, youWin) {
     case (.rock, true):
       alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.paper.text)"
