@@ -6,11 +6,23 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    VStack {
-      Image(systemName: "globe")
-        .imageScale(.large)
-        .foregroundStyle(.tint)
-      Text("Hello, world!")
+    HStack {
+      Spacer()
+      Button("🪨") {
+        // Tap on rock
+      }
+      .font(.largeTitle)
+      Spacer()
+      Button("📄") {
+        // Tap on paper
+      }
+      .font(.largeTitle)
+      Spacer()
+      Button("✂️") {
+        // Tap on scissors
+      }
+      .font(.largeTitle)
+      Spacer()
     }
     .padding()
   }
