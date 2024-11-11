@@ -13,43 +13,59 @@ struct ContentView: View {
   @State private var computerPoints = 0
 
   var body: some View {
-    VStack {
-      Spacer()
-      Text("Rock 🪨, Paper 📄 & Scissors ✂️")
-        .font(.title.bold())
-        .multilineTextAlignment(.center)
-      Spacer()
-      VStack(spacing: 20) {
-        Text("Please chose an option:")
-          .font(.headline)
-        HStack(spacing: 60) {
-          ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
-            OptionButton(option: option, action: onTap)
+    ZStack {
+      RadialGradient(
+              gradient: Gradient(colors: [
+                Color(red: 0.2, green: 0.2, blue: 0.7),
+                Color(red: 0.6, green: 0.1, blue: 0.3)
+              ]),
+              center: .center,
+              startRadius: 100,
+              endRadius: 500
+            )
+            .ignoresSafeArea()
+      VStack {
+        Spacer()
+        Text("Rock 🪨, Paper 📄 & Scissors ✂️")
+          .font(.title.bold())
+          .foregroundStyle(.white)
+          .multilineTextAlignment(.center)
+        Spacer()
+        VStack(spacing: 20) {
+          Text("Please chose an option:")
+            .font(.headline)
+            .foregroundStyle(.white)
+          HStack(spacing: 60) {
+            ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
+              OptionButton(option: option, action: onTap)
+            }
           }
         }
-      }
-      Spacer()
-      Spacer()
-      VStack(spacing: 20) {
-        Text("Score")
-          .font(.subheadline.bold())
-        HStack {
-          Spacer()
-          VStack {
-            Text("👤")
-            Text("\(playerPoints)")
+        Spacer()
+        Spacer()
+        VStack(spacing: 20) {
+          Text("Score")
+            .font(.subheadline.bold())
+            .foregroundStyle(.white)
+          HStack {
+            Spacer()
+            VStack {
+              Text("👤")
+              Text("\(playerPoints)")
+            }
+            Spacer()
+            VStack {
+              Text("💻")
+              Text("\(computerPoints)")
+            }
+            Spacer()
           }
-          Spacer()
-          VStack {
-            Text("💻")
-            Text("\(computerPoints)")
-          }
-          Spacer()
         }
+        .font(.footnote.bold())
+        .foregroundStyle(.white)
       }
-      .font(.footnote.bold())
+      .padding()
     }
-    .padding()
     .alert(alertTitle, isPresented: $showAlert) {
       Button("Play again", action: playAgain)
     } message: {
