@@ -19,15 +19,16 @@ struct ContentView: View {
   var body: some View {
     ZStack {
       RadialGradient(
-              gradient: Gradient(colors: [
-                Color(red: 0.2, green: 0.2, blue: 0.7),
-                Color(red: 0.6, green: 0.1, blue: 0.3)
-              ]),
-              center: .center,
-              startRadius: 100,
-              endRadius: 500
-            )
-            .ignoresSafeArea()
+        gradient: Gradient(colors: [
+          Color(red: 0.2, green: 0.2, blue: 0.7),
+          Color(red: 0.6, green: 0.1, blue: 0.3)
+        ]),
+        center: .center,
+        startRadius: 100,
+        endRadius: 500
+      )
+      .ignoresSafeArea()
+
       VStack {
         Spacer()
         Text("Rock 🪨, Paper 📄 & Scissors ✂️")
@@ -35,8 +36,9 @@ struct ContentView: View {
           .foregroundStyle(.white)
           .multilineTextAlignment(.center)
         Spacer()
+
         VStack(spacing: 20) {
-          Text("Please chose an option:")
+          Text("Please choose an option:")
             .font(.headline)
             .foregroundStyle(.white)
           HStack(spacing: 60) {
@@ -45,8 +47,10 @@ struct ContentView: View {
             }
           }
         }
+
         Spacer()
         Spacer()
+
         HStack {
           VStack(spacing: 8) {
             Text("👤: \(playerPoints)")
@@ -59,7 +63,6 @@ struct ContentView: View {
         }
         .font(.footnote.bold())
         .foregroundStyle(.white)
-
       }
       .padding()
     }
