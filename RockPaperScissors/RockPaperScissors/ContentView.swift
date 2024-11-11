@@ -5,26 +5,62 @@
 import SwiftUI
 
 struct ContentView: View {
+  @State private var youWin = Bool.random()
+  @State private var alertTitle = ""
+  @State private var alertMessage = ""
+  @State private var showAlert = false
+
   var body: some View {
     HStack(spacing: 60) {
       ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
-        OptionButton(option: option) {
-
-        }
+        OptionButton(option: option, action: onTap)
       }
     }
     .padding()
+    .alert(alertTitle, isPresented: $showAlert) {
+      Button("Play again", action: playAgain)
+    } message: {
+      Text(alertMessage)
+    }
+  }
+
+  private func playAgain() {
+    showAlert = false
+    youWin = Bool.random()
+    alertTitle = ""
+    alertMessage = ""
+  }
+
+  private func onTap(_ option: OptionButton.GameOption) {
+    alertTitle = youWin ? "You won" : "You lost"
+    switch (option, youWin) {
+    case (.rock, true):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.paper.text)"
+    case (.paper, true):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.scissors.text)"
+    case (.scissors, true):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.rock.text)"
+    case (.rock, false):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.paper.text)"
+    case (.paper, false):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.scissors.text)"
+    case (.scissors, false):
+      alertMessage = "You chose \(option.text), I chose \(OptionButton.GameOption.rock.text)"
+    }
+    showAlert = true
   }
 }
 
 private extension ContentView {
   struct OptionButton:View {
     let option: GameOption
-    let action: () -> Void
+    let action: (GameOption) -> Void
 
     var body: some View {
-      Button(option.text, action: action)
-        .font(.largeTitle)
+      Button(option.text) {
+        action(option)
+      }
+      .font(.largeTitle)
     }
   }
 }
