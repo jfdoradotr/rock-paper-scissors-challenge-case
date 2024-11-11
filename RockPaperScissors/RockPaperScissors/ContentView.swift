@@ -79,7 +79,7 @@ struct ContentView: View {
   }
 
   private func restart() {
-    attempts = 0
+    attempts = 1
     playerPoints = 0
     computerPoints = 0
     newMatch()
@@ -93,18 +93,18 @@ struct ContentView: View {
     alertMessage = ""
   }
 
-  private func gameOver() {
+  private func endGame() {
     alertTitle = "Game over!"
-    alertMessage = "You scored \(playerPoints) points and I scored \(computerPoints) points."
+    alertMessage = "Final score: You \(playerPoints) - Computer \(computerPoints)"
     gameOverAlert = true
   }
 
   private func playAgain() {
-    if attempts == 10 {
-      gameOver()
-      return
+    if attempts < maxAttempts {
+      newMatch()
+    } else {
+      endGame()
     }
-    newMatch()
   }
 
   private func determineOutcome() {
@@ -129,7 +129,11 @@ struct ContentView: View {
     updateScores()
     generateAlertMessage(for: option)
 
-    showAlert = true
+    if attempts >= maxAttempts {
+      endGame()
+    } else {
+      showAlert = true
+    }
   }
 }
 
