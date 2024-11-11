@@ -43,7 +43,7 @@ struct ContentView: View {
             .foregroundStyle(.white)
           HStack(spacing: 60) {
             ForEach(OptionButton.GameOption.allCases, id: \.self) { option in
-              OptionButton(option: option, action: onTap)
+              OptionButton(option: option, action: handleOptionTap)
             }
           }
         }
@@ -107,7 +107,7 @@ struct ContentView: View {
     newMatch()
   }
 
-  private func onTap(_ option: OptionButton.GameOption) {
+  private func handleOptionTap(_ option: OptionButton.GameOption) {
     alertTitle = youWin ? "You won" : "You lost"
 
     if youWin {
