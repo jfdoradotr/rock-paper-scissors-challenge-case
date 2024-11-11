@@ -11,6 +11,8 @@ struct ContentView: View {
   @State private var showAlert = false
   @State private var playerPoints = 0
   @State private var computerPoints = 0
+  @State private var attempts = 1
+  @State private var gameOverAlert = false
 
   var body: some View {
     ZStack {
@@ -43,41 +45,61 @@ struct ContentView: View {
         }
         Spacer()
         Spacer()
-        VStack(spacing: 20) {
-          Text("Score")
-            .font(.subheadline.bold())
-            .foregroundStyle(.white)
-          HStack {
-            Spacer()
-            VStack {
-              Text("👤")
-              Text("\(playerPoints)")
-            }
-            Spacer()
-            VStack {
-              Text("💻")
-              Text("\(computerPoints)")
-            }
-            Spacer()
+        HStack {
+          VStack(spacing: 8) {
+            Text("👤: \(playerPoints)")
+            Text("💻: \(computerPoints)")
+          }
+          Spacer()
+          VStack {
+            Text("\(attempts)/10")
           }
         }
         .font(.footnote.bold())
         .foregroundStyle(.white)
+
       }
       .padding()
     }
     .alert(alertTitle, isPresented: $showAlert) {
-      Button("Play again", action: playAgain)
+      Button("Next", action: playAgain)
+    } message: {
+      Text(alertMessage)
+    }
+    .alert(alertTitle, isPresented: $gameOverAlert) {
+      Button("Start new game", action: restart)
     } message: {
       Text(alertMessage)
     }
   }
 
-  private func playAgain() {
+  private func restart() {
+    attempts = 0
+    playerPoints = 0
+    computerPoints = 0
+    newMatch()
+  }
+
+  private func newMatch() {
+    attempts += 1
     showAlert = false
     youWin = Bool.random()
     alertTitle = ""
     alertMessage = ""
+  }
+
+  private func gameOver() {
+    alertTitle = "Game over!"
+    alertMessage = "You scored \(playerPoints) points and I scored \(computerPoints) points."
+    gameOverAlert = true
+  }
+
+  private func playAgain() {
+    if attempts == 10 {
+      gameOver()
+      return
+    }
+    newMatch()
   }
 
   private func onTap(_ option: OptionButton.GameOption) {
