@@ -107,8 +107,12 @@ struct ContentView: View {
     newMatch()
   }
 
-  private func handleOptionTap(_ option: OptionButton.GameOption) {
+  private func determineOutcome() {
     alertTitle = youWin ? "You won" : "You lost"
+  }
+
+  private func handleOptionTap(_ option: OptionButton.GameOption) {
+    determineOutcome()
 
     if youWin {
       playerPoints += 1
