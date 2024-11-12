@@ -79,7 +79,7 @@ struct ContentView: View {
   }
 
   private func restart() {
-    attempts = 1
+    attempts = 0
     playerPoints = 0
     computerPoints = 0
     newMatch()
